@@ -11,8 +11,11 @@ Use the following user-data in Hetzner Cloud:
 
 export USER=root
 export HOME=/root
+
 git clone https://github.com/nicholasdille/kubernetes /tmp/kubernetes
+
 bash /tmp/kubernetes/master.sh
+bash /tmp/kubernetes/helm.sh
 ```
 
 This will currently only work for Ubuntu 16.04.
