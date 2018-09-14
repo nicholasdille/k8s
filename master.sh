@@ -33,8 +33,6 @@ systemctl start kubelet
 
 # Init cluster
 kubeadm init --apiserver-advertise-address $(hostname -i) --pod-network-cidr=10.244.0.0/16
-sed -i 's/- kube-apiserver/- kube-apiserver\n    - --service-node-port-range=1-65535/' /etc/kubernetes/manifests/kube-apiserver.yaml
-service kubelet restart
 
 # Get connection data
 mkdir -p /root/.kube
@@ -46,3 +44,7 @@ kubectl apply -n kube-system -f "https://cloud.weave.works/k8s/net?k8s-version=$
 
 # Enable scheduling on master
 kubectl taint nodes $(hostname) node-role.kubernetes.io/master:NoSchedule-
+
+# Configure node ports
+sed -i 's/- kube-apiserver/- kube-apiserver\n    - --service-node-port-range=1-65535/' /etc/kubernetes/manifests/kube-apiserver.yaml
+service kubelet restart
