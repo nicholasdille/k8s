@@ -6,5 +6,5 @@ set -e
 curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
 
 # Install tiller
-kubectl apply -f tiller.yml
+kubectl apply -f helm.yml
 helm init --service-account tiller
