@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: drone-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: drone-agent
+  template:
+    metadata:
+      labels:
+        app: drone-agent
+    spec:
+      containers:
+        - name: drone-agent
+          image: drone/agent:0.8
+          env:
+          - name: DRONE_SERVER
+            value: "drone"
+          - name: DRONE_SECRET
+            value: "mydronesecret"
+          - name: DOCKER_HOST
+            value: "tcp://dind:2375"

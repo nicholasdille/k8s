@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dind
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dind
+  template:
+    metadata:
+      labels:
+        app: dind
+    spec:
+      containers:
+        - name: dind
+          image: dind
+          securityContext:
+            privileged: true
+          ports:
+            - name: http
+              containerPort: 2375
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: dind
+spec:
+  selector:
+    app: dind
+  ports:
+  - name: http
+    port: 2375
+    targetPort: 2375

@@ -1,0 +1,55 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: docker-registry-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-registry-web
+  template:
+    metadata:
+      labels:
+        app: docker-registry-web
+    spec:
+      containers:
+        - name: docker-registry-web
+          image: konradkleine/docker-registry-frontend:v2
+          ports:
+          - name: web
+            containerPort: 80
+          env:
+          - name: ENV_DOCKER_REGISTRY_HOST
+            value: "registry"
+          - name: ENV_DOCKER_REGISTRY_PORT
+            value: "5000"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: docker-registry-web
+  labels:
+    app: docker-registry-web
+spec:
+  selector:
+    app: docker-registry-web
+  ports:
+  - name: web
+    port: 80
+    targetPort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: docker-registry-web
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: registry.go-nerd.de
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: docker-registry-web
+          servicePort: web
