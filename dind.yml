@@ -1,3 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dind
+  labels:
+    k8s-app: dind
+data:
+  daemon.json: |+
+    {
+      "insecure-registries" : ["docker-registry:5000"]
+    }
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -14,12 +26,19 @@ spec:
     spec:
       containers:
         - name: dind
-          image: dind
+          image: docker:stable-dind
           securityContext:
             privileged: true
           ports:
             - name: http
               containerPort: 2375
+          volumeMounts:
+          - name: config
+            mountPath: /etc/docker
+      volumes:
+      - name: config
+        configMap:
+          name: dind
 ---
 kind: Service
 apiVersion: v1
