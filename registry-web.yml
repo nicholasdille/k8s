@@ -46,7 +46,7 @@ metadata:
     kubernetes.io/ingress.class: traefik
 spec:
   rules:
-  - host: registry.go-nerd.de
+  - host: registry.k8s.go-nerd.de
     http:
       paths:
       - path: /
