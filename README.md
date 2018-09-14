@@ -14,8 +14,10 @@ export HOME=/root
 
 git clone https://github.com/nicholasdille/kubernetes /tmp/kubernetes
 
-bash /tmp/kubernetes/master.sh
-bash /tmp/kubernetes/helm.sh
+cd /tmp/kubernetes
+bash master.sh
+bash helm.sh
+kubectl apply -f traefik.yml
 ```
 
 This will currently only work for Ubuntu 16.04.
