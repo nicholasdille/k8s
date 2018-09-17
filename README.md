@@ -12,7 +12,7 @@ Use the following user-data in Hetzner Cloud:
 export USER=root
 export HOME=/root
 
-git clone https://github.com/nicholasdille/kubernetes /tmp/kubernetes
+git clone https://github.com/nicholasdille/k8s /tmp/kubernetes
 
 cd /tmp/kubernetes
 bash master.sh
