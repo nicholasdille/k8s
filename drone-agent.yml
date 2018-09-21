@@ -17,7 +17,7 @@ spec:
           image: drone/agent:0.8
           env:
           - name: DRONE_SERVER
-            value: "drone"
+            value: "drone:9000"
           - name: DRONE_SECRET
             value: "mydronesecret"
           - name: DOCKER_HOST
