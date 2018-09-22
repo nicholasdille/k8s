@@ -1,19 +1,19 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: docker-registry-web
+  name: registry-web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: docker-registry-web
+      app: registry-web
   template:
     metadata:
       labels:
-        app: docker-registry-web
+        app: registry-web
     spec:
       containers:
-        - name: docker-registry-web
+        - name: registry-web
           image: konradkleine/docker-registry-frontend:v2
           ports:
           - name: web
@@ -27,12 +27,12 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: docker-registry-web
+  name: registry-web
   labels:
-    app: docker-registry-web
+    app: registry-web
 spec:
   selector:
-    app: docker-registry-web
+    app: registry-web
   ports:
   - name: web
     port: 80
@@ -41,7 +41,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: docker-registry-web
+  name: registry-web
   annotations:
     kubernetes.io/ingress.class: traefik
 spec:
@@ -51,5 +51,5 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: docker-registry-web
+          serviceName: registry-web
           servicePort: web
