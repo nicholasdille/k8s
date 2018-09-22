@@ -38,7 +38,9 @@ spec:
             mountPath: "/var/lib/drone"
       volumes:
         - name: drone-data
-          emptyDir: {}
+          hostPath:
+            path: /data/drone-data
+            type: DirectoryOrCreate
 ---
 kind: Service
 apiVersion: v1

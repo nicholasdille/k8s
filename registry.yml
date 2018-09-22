@@ -19,11 +19,13 @@ spec:
           - name: api
             containerPort: 5000
           volumeMounts:
-          - name: image-store
+          - name: registry-data
             mountPath: "/var/lib/registry"
       volumes:
-        - name: image-store
-          emptyDir: {}
+        - name: registry-data
+          hostPath:
+            path: /data/registry-data
+            type: DirectoryOrCreate
 ---
 kind: Service
 apiVersion: v1
