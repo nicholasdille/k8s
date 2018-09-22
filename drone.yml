@@ -31,6 +31,8 @@ spec:
             value: "http://gitea"
           - name: DRONE_SECRET
             value: "mydronesecret"
+          - name: DRONE_ADMIN
+            value: "admin,groot"
           volumeMounts:
           - name: drone-data
             mountPath: "/var/lib/drone"
