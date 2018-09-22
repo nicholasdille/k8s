@@ -5,7 +5,7 @@ metadata:
 data:
   daemon.json: |
     {
-      "insecure-registries" : ["docker-registry:5000"]
+      "insecure-registries" : ["registry:5000"]
     }
 ---
 apiVersion: extensions/v1beta1
