@@ -106,7 +106,7 @@ spec:
         volumeMounts:
         - mountPath: "/config"
           name: "config"
-        - mountPath: /acme/acme.json
+        - mountPath: /data/acme/acme.json
           name: acme
         ports:
         - name: http
