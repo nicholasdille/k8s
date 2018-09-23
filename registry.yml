@@ -52,3 +52,20 @@ spec:
     nodePort: 5000
     targetPort: 5000
   type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: registry
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: registry.k8s.go-nerd.de
+    http:
+      paths:
+      - path: /v2
+        backend:
+          serviceName: registry
+          servicePort: api
