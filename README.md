@@ -22,6 +22,20 @@ kubectl apply -f traefik.yml
 
 This will currently only work for Ubuntu 16.04.
 
+## Helm
+
+Install `helm`:
+
+```bash
+bash helm.sh
+```
+
+To install `traefik` using `helm`:
+
+```bash
+helm install stable/traefik --values helm-traefik-values.yml
+```
+
 ## Completion
 
 To enable completion for `kubectl` commands and cluster objects:
