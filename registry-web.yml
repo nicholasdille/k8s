@@ -44,6 +44,7 @@ metadata:
   name: registry-web
   annotations:
     kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   rules:
   - host: registry.k8s.go-nerd.de

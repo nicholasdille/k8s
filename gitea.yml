@@ -48,6 +48,7 @@ metadata:
   name: gitea
   annotations:
     kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   rules:
   - host: gitea.k8s.go-nerd.de
