@@ -98,15 +98,15 @@ spec:
           name: traefik-conf
       - name: acme
         hostPath:
-          path: /acme/acme.json
-          type: File
+          path: /data/acme/acme.json
+          type: FileOrCreate
       containers:
       - image: traefik
         name: traefik-ingress-lb
         volumeMounts:
         - mountPath: "/config"
           name: "config"
-        - mountPath: /data/acme/acme.json
+        - mountPath: /acme/acme.json
           name: acme
         ports:
         - name: http
