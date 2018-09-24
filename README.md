@@ -48,7 +48,15 @@ source <(kubectl completion bash)
 
 Open a proxy into your cluster:
 
-```
+```bash
 kubectl proxy
 curl http://127.0.0.1:8001/api/v1/namespaces/default/services/docker-registry-web:web/proxy/home
+```
+
+## Templating
+
+How to parameterize:
+
+```bash
+cat gitea.yml.envsubst | GITEA_IMAGE_TAG=1.5 PUBLISH_DOMAIN=gitea.k8s.go-nerd.de envsubst
 ```
