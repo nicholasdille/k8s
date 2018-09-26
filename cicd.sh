@@ -1,14 +1,16 @@
 #!/bin/bash
 
+export CICD_NAME_SUFFIX=.k8s
+
 # Install Docker registry
-kubectl apply -f registry.yml
-kubectl apply -f registry-web.yml
+cat registry.yml | envsubst | kubectl apply -f -
+cat registry-web.yml | envsubst | kubectl apply -f -
 
 # Install gitea
-kubectl apply -f gitea.yml
+cat gitea.yml | envsubst | kubectl apply -f -
 
 # Install drone server
-kubectl apply -f drone.yml
+cat drone.yml | envsubst | kubectl apply -f -
 curl -Ls https://github.com/drone/drone-cli/releases/download/v0.8.6/drone_linux_amd64.tar.gz | tar -xvz -C /usr/local/bin
 
 # Install drone agent

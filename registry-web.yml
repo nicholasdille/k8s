@@ -47,7 +47,7 @@ metadata:
     traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   rules:
-  - host: registry.k8s.go-nerd.de
+  - host: hub${CICD_NAME_SUFFIX}.go-nerd.de
     http:
       paths:
       - path: /
