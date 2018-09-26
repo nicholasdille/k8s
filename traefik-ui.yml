@@ -20,7 +20,7 @@ metadata:
     traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   rules:
-  - host: traefik.k8s.go-nerd.de
+  - host: traefik.${DNS_DOMAIN}
     http:
       paths:
       - backend:
