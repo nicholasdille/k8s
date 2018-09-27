@@ -1,0 +1,45 @@
+--- kubernetes-dashboard.yaml   2018-09-27 09:48:25.881454125 +0200
++++ dashboard-patch.yml 2018-09-27 09:45:12.523345735 +0200
+@@ -111,14 +111,17 @@
+       - name: kubernetes-dashboard
+         image: k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.0
+         ports:
+-        - containerPort: 8443
++        - containerPort: 9090
+           protocol: TCP
+         args:
+-          - --auto-generate-certificates
++          #- --auto-generate-certificates
+           # Uncomment the following line to manually specify Kubernetes API server Host
+           # If not specified, Dashboard will attempt to auto discover the API server and connect
+           # to it. Uncomment only if the default does not work.
+           # - --apiserver-host=http://my-address:port
++          - --enable-insecure-login=true
++          - --insecure-bind-address=0.0.0.0
++          - --insecure-port=9090
+         volumeMounts:
+         - name: kubernetes-dashboard-certs
+           mountPath: /certs
+@@ -127,9 +130,9 @@
+           name: tmp-volume
+         livenessProbe:
+           httpGet:
+-            scheme: HTTPS
++            scheme: HTTP
+             path: /
+-            port: 8443
++            port: 9090
+           initialDelaySeconds: 30
+           timeoutSeconds: 30
+       volumes:
+@@ -156,7 +159,9 @@
+   namespace: kube-system
+ spec:
+   ports:
+-    - port: 443
+-      targetPort: 8443
++    - name: http
++      port: 80
++      targetPort: 9090
+   selector:
+     k8s-app: kubernetes-dashboard
