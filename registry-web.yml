@@ -49,7 +49,7 @@ metadata:
     ingress.kubernetes.io/auth-secret: "registry-auth"
 spec:
   rules:
-  - host: hub${CICD_NAME_SUFFIX}.go-nerd.de
+  - host: hub${CICD_NAME_SUFFIX}.${CICD_DNS_DOMAIN}
     http:
       paths:
       - path: /

@@ -41,7 +41,7 @@ metadata:
     traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   rules:
-  - host: owncloud.k8s.go-nerd.de
+  - host: owncloud${CICD_NAME_SUFFIX}.${CICD_DNS_DOMAIN}
     http:
       paths:
       - path: /

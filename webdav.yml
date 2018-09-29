@@ -54,7 +54,7 @@ metadata:
     traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   rules:
-  - host: webdav${CICD_NAME_SUFFIX}.go-nerd.de
+  - host: webdav${CICD_NAME_SUFFIX}.${CICD_DNS_DOMAIN}
     http:
       paths:
       - path: /
