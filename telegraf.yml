@@ -8,7 +8,7 @@ data:
       hostname = "$HOSTNAME"
     [[outputs.influxdb]]
       urls = ["$INFLUXDB_HOST"] # required
-      database = "$MONITOR_DATABASE" # required
+      database = "$INFLUXDB_DATABASE" # required
 
       timeout = "5s"
       username = "$INFLUXDB_USERNAME"
