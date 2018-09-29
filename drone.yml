@@ -47,8 +47,6 @@ kind: Service
 apiVersion: v1
 metadata:
   name: drone
-  labels:
-    app: drone
 spec:
   selector:
     app: drone

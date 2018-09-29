@@ -29,8 +29,6 @@ kind: Service
 apiVersion: v1
 metadata:
   name: registry-web
-  labels:
-    app: registry-web
 spec:
   selector:
     app: registry-web
