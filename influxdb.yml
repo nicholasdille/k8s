@@ -55,20 +55,3 @@ spec:
   - name: http
     port: 80
     targetPort: 8086
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: influxdb
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/redirect-entry-point: https
-spec:
-  rules:
-  - host: influxdb${CICD_NAME_SUFFIX}.${CICD_DNS_DOMAIN}
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: influxdb
-          servicePort: http
