@@ -16,3 +16,7 @@ curl -Ls https://github.com/drone/drone-cli/releases/download/v0.8.6/drone_linux
 # Install drone agent
 kubectl apply -f dind.yml
 kubectl apply -f drone-agent.yml
+
+# Install WebDAV
+kubectl create configmap webdav-auth --from-file htpasswd=auth
+kubectl apply -f webdav.yml

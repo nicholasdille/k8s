@@ -1,0 +1,63 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: webdav
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webdav
+  template:
+    metadata:
+      labels:
+        app: webdav
+    spec:
+      volumes:
+        - name: webdav-data
+          hostPath:
+            path: /data/webdav-data
+            type: DirectoryOrCreate
+        - name: authdata
+          configMap:
+            name: webdav-conf
+      containers:
+        - name: webdav
+          image: localhost:5000/groot/nginx-webdav
+          imagePullPolicy: Always
+          ports:
+          - name: http
+            containerPort: 80
+          volumeMounts:
+          - name: webdav-data
+            mountPath: "/data"
+          - name: authdata
+            mountPath: "/etc/nginx/auth"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: webdav
+spec:
+  selector:
+    app: webdav
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: webdav
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: webdav${CICD_NAME_SUFFIX}.go-nerd.de
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: webdav
+          servicePort: http
