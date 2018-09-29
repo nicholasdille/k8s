@@ -15,6 +15,7 @@ spec:
       containers:
         - name: drone
           image: drone/drone:0.8
+          imagePullPolicy: Always
           ports:
           - name: web
             containerPort: 8000

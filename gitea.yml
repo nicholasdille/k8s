@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: gitea
-          image: gitea/gitea
+          image: gitea/gitea:1.5
+          imagePullPolicy: Always
           ports:
           - name: web
             containerPort: 3000

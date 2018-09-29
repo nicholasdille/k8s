@@ -15,6 +15,7 @@ spec:
       containers:
         - name: registry-web
           image: konradkleine/docker-registry-frontend:v2
+          imagePullPolicy: Always
           ports:
           - name: web
             containerPort: 80

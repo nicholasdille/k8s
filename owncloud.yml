@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: owncloud
-        image: owncloud
+        image: owncloud/server:10.0
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
 ---

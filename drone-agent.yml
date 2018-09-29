@@ -15,6 +15,7 @@ spec:
       containers:
         - name: drone-agent
           image: drone/agent:0.8
+          imagePullPolicy: Always
           env:
           - name: DRONE_SERVER
             value: "drone:9000"
