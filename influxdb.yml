@@ -1,0 +1,74 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      volumes:
+        - name: influxdb-data
+          hostPath:
+            path: /data/influxdb-data
+            type: DirectoryOrCreate
+      containers:
+        - name: influxdb
+          image: influxdb:1.6-alpine
+          ports:
+          - name: http
+            containerPort: 8086
+          env:
+          - name: INFLUXDB_HTTP_AUTH_ENABLED
+            value: "true"
+          - name: INFLUXDB_DB
+            value: "demo"
+          - name: INFLUXDB_ADMIN_USER
+            value: "admin"
+          - name: INFLUXDB_ADMIN_PASSWORD
+            value: "admin"
+          - name: INFLUXDB_READ_USER
+            value: "read"
+          - name: INFLUXDB_READ_USER_PASSWORD
+            value: "read"
+          - name: INFLUXDB_WRITE_USER
+            value: "write"
+          - name: INFLUXDB_WRITE_USER_PASSWORD
+            value: "write"
+          volumeMounts:
+          - name: influxdb-data
+            mountPath: "/var/lib/influxdb"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: influxdb
+spec:
+  selector:
+    app: influxdb
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8086
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: influxdb
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: influxdb${CICD_NAME_SUFFIX}.${CICD_DNS_DOMAIN}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: influxdb
+          servicePort: http

@@ -1,0 +1,65 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      volumes:
+        - name: grafana-data
+          hostPath:
+            path: /data/grafana-data
+            type: DirectoryOrCreate
+      containers:
+        - name: grafana
+          image: grafana/grafana:latest
+          imagePullPolicy: Always
+          env:
+          - name: GF_SERVER_ROOT_URL
+            value: "https://grafana${CICD_NAME_SUFFIX}.${CICD_DNS_DOMAIN}"
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            value: "grafana123"
+          #- name: GF_INSTALL_PLUGINS
+          #  value: "grafana-clock-panel,grafana-simple-json-datasource"
+          ports:
+          - name: http
+            containerPort: 3000
+          volumeMounts:
+          - name: grafana-data
+            mountPath: "/var/lib/grafana"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: grafana
+spec:
+  selector:
+    app: grafana
+  ports:
+  - name: http
+    port: 80
+    targetPort: 3000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: grafana${CICD_NAME_SUFFIX}.${CICD_DNS_DOMAIN}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: grafana
+          servicePort: http
