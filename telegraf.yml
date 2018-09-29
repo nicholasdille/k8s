@@ -29,8 +29,10 @@ data:
     [[inputs.system]]
     [[inputs.docker]]
       endpoint = "unix:///var/run/docker.sock"
-    [[inputs.kubernetes]]
-      url = "http://1.1.1.1:10255"
+    #[[inputs.kubernetes]]
+    #  url = "https://$KUBERNETES_PORT_443_TCP_ADDR"
+    #  bearer_token = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+    #  insecure_skip_verify = true
 ---
 apiVersion: apps/v1
 kind: DaemonSet
