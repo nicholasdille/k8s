@@ -1,8 +1,15 @@
 #!/bin/bash
 
+if ! -f ./auth; then
+    echo "Please create users using htpasswd in file auth"
+    exit 1
+fi
+
+export CICD_DNS_DOMAIN=go-nerd.de
 export CICD_NAME_SUFFIX=.k8s
 
 # Install Docker registry
+kubectl create secret generic registry-auth --from-file auth
 cat registry.yml | envsubst | kubectl apply -f -
 cat registry-web.yml | envsubst | kubectl apply -f -
 

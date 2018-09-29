@@ -45,6 +45,8 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/redirect-entry-point: https
+    ingress.kubernetes.io/auth-type: "basic"
+    ingress.kubernetes.io/auth-secret: "registry-auth"
 spec:
   rules:
   - host: hub${CICD_NAME_SUFFIX}.go-nerd.de
