@@ -8,7 +8,7 @@ metadata:
     traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   rules:
-  - host: dashboard.go-nerd.de
+  - host: dashboard.dille.io
     http:
       paths:
       - path: /

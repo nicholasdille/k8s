@@ -5,8 +5,8 @@ if ! -f ./auth; then
     exit 1
 fi
 
-export CICD_DNS_DOMAIN=go-nerd.de
-export CICD_NAME_SUFFIX=.k8s
+export CICD_DNS_DOMAIN=dille.io
+export CICD_NAME_SUFFIX=
 
 # Install Docker registry
 kubectl create secret generic registry-auth --from-file auth
@@ -25,5 +25,4 @@ kubectl apply -f dind.yml
 kubectl apply -f drone-agent.yml
 
 # Install WebDAV
-kubectl create configmap webdav-auth --from-file htpasswd=auth
 kubectl apply -f webdav.yml
