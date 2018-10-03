@@ -14,5 +14,6 @@ else
 fi
 
 kubectl apply -f traefik.yml
-kubectl create secret generic traefik-auth --from-file auth
+cat auth | grep groot > traefik-auth
+kubectl create secret generic traefik-auth --from-file traefik-auth
 cat traefik-ui.yml | envsubst | kubectl apply -f -
