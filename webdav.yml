@@ -19,7 +19,7 @@ spec:
             type: DirectoryOrCreate
         - name: authdata
           configMap:
-            name: webdav-conf
+            name: webdav-auth
       containers:
         - name: webdav
           image: localhost:5000/groot/nginx-webdav

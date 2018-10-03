@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if ! -f ./auth; then
+if [ ! -f ./auth ]; then
     echo "Please create users using htpasswd in file auth"
     exit 1
 fi
@@ -25,4 +25,5 @@ kubectl apply -f dind.yml
 kubectl apply -f drone-agent.yml
 
 # Install WebDAV
-kubectl apply -f webdav.yml
+kubectl create configmap webdav-auth --from-file htpasswd=auth
+cat webdav.yml | envsubst | kubectl apply -f -
