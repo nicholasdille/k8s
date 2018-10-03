@@ -1,5 +1,5 @@
---- kubernetes-dashboard.yaml   2018-09-27 09:48:25.881454125 +0200
-+++ dashboard-patch.yml 2018-09-27 09:45:12.523345735 +0200
+--- kubernetes-dashboard.yaml	2018-10-03 12:51:36.461461735 +0200
++++ kubernetes-dashboard.yaml.1	2018-10-03 12:52:02.634257035 +0200
 @@ -111,14 +111,17 @@
        - name: kubernetes-dashboard
          image: k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.0
@@ -32,7 +32,7 @@
            initialDelaySeconds: 30
            timeoutSeconds: 30
        volumes:
-@@ -156,7 +159,9 @@
+@@ -156,7 +159,8 @@
    namespace: kube-system
  spec:
    ports:
