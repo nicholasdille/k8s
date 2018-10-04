@@ -15,5 +15,6 @@ fi
 
 kubectl apply -f traefik.yml
 cat auth | grep groot > traefik-auth
-kubectl create secret generic traefik-auth --from-file traefik-auth --namespace kube-system
+kubectl --namespace kube-system delete secret traefik-auth
+kubectl --namespace kube-system create secret generic traefik-auth --from-file traefik-auth
 cat traefik-ui.yml | envsubst | kubectl apply -f -

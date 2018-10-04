@@ -9,6 +9,7 @@ export CICD_DNS_DOMAIN=dille.io
 export CICD_NAME_SUFFIX=
 
 # Install Docker registry
+kubectl delete secret registry-auth
 kubectl create secret generic registry-auth --from-file auth
 cat registry.yml | envsubst | kubectl apply -f -
 cat registry-web.yml | envsubst | kubectl apply -f -
@@ -25,5 +26,6 @@ kubectl apply -f dind.yml
 kubectl apply -f drone-agent.yml
 
 # Install WebDAV
+kubectl delete configmap webdav-auth
 kubectl create configmap webdav-auth --from-file htpasswd=auth
 cat webdav.yml | envsubst | kubectl apply -f -
