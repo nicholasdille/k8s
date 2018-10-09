@@ -29,7 +29,7 @@ spec:
           - name: DRONE_GITEA
             value: "true"
           - name: DRONE_GITEA_URL
-            value: "http://git${CICD_NAME_SUFFIX}.${CICD_DNS_DOMAIN}"
+            value: "https://git${CICD_NAME_SUFFIX}.${CICD_DNS_DOMAIN}"
           - name: DRONE_SECRET
             value: "mydronesecret"
           - name: DRONE_ADMIN
