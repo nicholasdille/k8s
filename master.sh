@@ -24,8 +24,21 @@ curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/bu
 systemctl enable kubelet
 systemctl start kubelet
 
+# Install packages
+modprobe -- ip_vs
+modprobe -- ip_vs_rr
+modprobe -- ip_vs_wrr
+modprobe -- ip_vs_sh
+modprobe -- nf_conntrack_ipv4
+apt-get update
+apt-get -y install ipvsadm ipset
+
 # Init cluster
-kubeadm init --apiserver-advertise-address $(hostname -i) --pod-network-cidr=10.244.0.0/16
+cd -
+kubeadm config print-default > kubeadm.conf
+patch kubeadm.conf < kubeadm.conf.patch
+sed -i "s/advertiseAddress: 1.2.3.4/advertiseAddress: $(hostname -i)/" kubeadm.conf
+kubeadm init --config ./kubeadm.conf
 
 # Get connection data
 mkdir -p $HOME/.kube
