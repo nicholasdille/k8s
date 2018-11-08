@@ -65,7 +65,7 @@ cat gitea.yml.envsubst | GITEA_IMAGE_TAG=1.5 PUBLISH_DOMAIN=gitea.k8s.go-nerd.de
 
 ```bash
 kubectl config set-cluster kubernetes --server=https://1.2.3.4:6443 --certificate-authority=./ca.crt --embed-certs
-kubectl config set-credentials cicd --client-key=user.key --client-certificate=user.crt --embed-certs=true
+kubectl config set-credentials cicd --client-key=user.key --client-certificate=user.crt --embed-certs
 kubectl config set-context kubernetes-context --cluster=kubernetes --user=cicd --namespace=cicd
 kubectl config use-context kubernetes-context
 ```
