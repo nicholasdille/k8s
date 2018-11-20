@@ -1,5 +1,14 @@
---- kubeadm.conf	2018-10-11 11:32:32.545767696 +0200
-+++ kubeadm.conf.new	2018-10-11 11:32:10.284830023 +0200
+--- kubeadm.conf.orig	2018-11-20 17:21:23.260960769 +0100
++++ kubeadm.conf	2018-11-20 17:21:45.678004579 +0100
+@@ -12,7 +12,7 @@
+   - authentication
+ kind: InitConfiguration
+ nodeRegistration:
+-  criSocket: /var/run/dockershim.sock
++  criSocket: /var/run/containerd/containerd.sock
+   name: ubuntu-4gb-fsn1-1
+   taints:
+   - effect: NoSchedule
 @@ -35,7 +35,7 @@
  kubernetesVersion: v1.12.0
  networking:

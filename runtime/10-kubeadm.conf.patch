@@ -1,0 +1,9 @@
+--- 10-kubeadm.conf.orig	2018-11-20 17:00:54.190122277 +0100
++++ 10-kubeadm.conf	2018-11-20 17:01:13.514908962 +0100
+@@ -1,5 +1,6 @@
+ # Note: This dropin only works with kubeadm and kubelet v1.11+
+ [Service]
++Environment="KUBELET_EXTRA_ARGS= --runtime-cgroups=/system.slice/containerd.service --container-runtime=remote --runtime-request-timeout=15m --container-runtime-endpoint=unix:///run/containerd/containerd.sock"
+ Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
+ Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
+ # This is a file that "kubeadm init" and "kubeadm join" generates at runtime, populating the KUBELET_KUBEADM_ARGS variable dynamically
