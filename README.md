@@ -24,6 +24,8 @@ cd /tmp/k8s/bootstrap
 bash master.sh
 ```
 
+To bootstrap kubernetes based on Docker only run `bash docker.sh` from `binaries/`.
+
 ## Completion
 
 To enable completion for `kubectl` commands and cluster objects:

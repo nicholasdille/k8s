@@ -20,7 +20,9 @@ swapoff $(swapon --noheadings | cut -d' ' -f1)
 kubeadm config print-default > kubeadm.conf
 patch kubeadm.conf < kubeadm.conf.patch
 sed -i "s/advertiseAddress: 1.2.3.4/advertiseAddress: $(hostname -i)/" kubeadm.conf
-sed -i 's|criSocket: /var/run/dockershim.sock|criSocket: /var/run/containerd/containerd.sock|' kubeadm.conf
+if ! type docker >/dev/null; then
+    sed -i 's|criSocket: /var/run/dockershim.sock|criSocket: /var/run/containerd/containerd.sock|' kubeadm.conf
+fi
 kubeadm init --config ./kubeadm.conf
 
 # Get connection data
