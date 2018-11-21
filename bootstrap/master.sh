@@ -13,11 +13,15 @@ sysctl net.ipv4.ip_forward=1
 apt-get update
 apt-get -y install ipvsadm ipset
 
+# Disable swap
+swapoff $(swapon --noheadings | cut -d' ' -f1)
+
 # Init cluster
 kubeadm config print-default > kubeadm.conf
 patch kubeadm.conf < kubeadm.conf.patch
 sed -i "s/advertiseAddress: 1.2.3.4/advertiseAddress: $(hostname -i)/" kubeadm.conf
-kubeadm init --config ./kubeadm.conf --ignore-preflight-errors=swap
+sed -i 's|criSocket: /var/run/dockershim.sock|criSocket: /var/run/containerd/containerd.sock|' kubeadm.conf
+kubeadm init --config ./kubeadm.conf
 
 # Get connection data
 mkdir -p $HOME/.kube
