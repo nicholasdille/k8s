@@ -2,7 +2,7 @@
 
 My Kubernetes stuff
 
-## Single-node cluster
+## Single-node cluster with containerd
 
 Use the following user-data in Hetzner Cloud:
 
@@ -14,26 +14,14 @@ export HOME=/root
 
 git clone https://github.com/nicholasdille/k8s /tmp/k8s
 
-cd /tmp/k8s
-bash docker.sh
+cd /tmp/k8s/binaries
+bash runc.sh
+bash cni.sh
+bash crictl.sh
+bash containerd.sh
+
+cd /tmp/k8s/bootstrap
 bash master.sh
-kubectl apply -f traefik.yml
-```
-
-This will currently only work for Ubuntu 16.04.
-
-## Helm
-
-Install `helm`:
-
-```bash
-bash helm.sh
-```
-
-To install `traefik` using `helm`:
-
-```bash
-helm install stable/traefik --values helm-traefik-values.yml
 ```
 
 ## Completion
