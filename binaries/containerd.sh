@@ -5,7 +5,7 @@ CONTAINERD_VERSION=1.2.0
 
 curl -sL https://github.com/containerd/containerd/releases/download/v${CONTAINERD_VERSION}/containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz | tar -xz -C /usr/local/
 
-curl -sL https://storage.googleapis.com/cri-containerd-release/cri-containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz | tar -xz -C / ./etc/systemd/system/containerd.service
+curl -sL https://github.com/containerd/containerd/raw/master/containerd.service > /etc/systemd/system/containerd.service
 
 apt-get update
 apt-get -y install unzip tar apt-transport-https btrfs-tools libseccomp2 socat util-linux
