@@ -1,20 +1,10 @@
---- kubeadm.conf.orig	2018-11-21 21:59:53.223495627 +0100
-+++ kubeadm.conf	2018-11-21 22:01:00.306894166 +0100
-@@ -35,7 +35,7 @@
- kubernetesVersion: v1.12.0
+--- kubeadm.conf.orig	2018-12-04 11:52:20.988223977 +0100
++++ kubeadm.conf	2018-12-04 11:51:44.987129952 +0100
+@@ -35,6 +35,6 @@
+ kubernetesVersion: v1.13.0
  networking:
    dnsDomain: cluster.local
 -  podSubnet: ""
 +  podSubnet: "10.32.0.0/12"
    serviceSubnet: 10.96.0.0/12
- unifiedControlPlaneImage: ""
- ---
-@@ -162,7 +162,7 @@
-   syncPeriod: 30s
- kind: KubeProxyConfiguration
- metricsBindAddress: 127.0.0.1:10249
--mode: ""
-+mode: "ipvs"
- nodePortAddresses: null
- oomScoreAdj: -999
- portRange: ""
+ scheduler: {}
