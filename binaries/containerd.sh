@@ -14,3 +14,5 @@ apt-get update
 apt-get -y install unzip tar apt-transport-https btrfs-tools libseccomp2 socat util-linux
 
 systemctl daemon-reload
+systemctl enable containerd
+service containerd start

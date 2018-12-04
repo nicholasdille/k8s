@@ -13,5 +13,7 @@ fi
 
 kubeadm init --config ./kubeadm.conf --ignore-preflight-errors=NumCPU
 
+rm kubeadm.conf
+
 # Configure node ports
 sed -i 's/- kube-apiserver/- kube-apiserver\n    - --service-node-port-range=1-65535/' /etc/kubernetes/manifests/kube-apiserver.yaml
