@@ -9,3 +9,6 @@ cd ..
 cd bootstrap
 bash prepare.sh
 bash master.sh
+bash untaint.sh
+bash admin.sh
+cd ..
