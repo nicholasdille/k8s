@@ -60,7 +60,7 @@ kubectl config set-context kubernetes-context --cluster=kubernetes --user=cicd -
 kubectl config use-context kubernetes-context
 ```
 
-## Custom API users
+## Custom API users with certificate authentication
 
 1. Create user certificates:
 
@@ -109,3 +109,52 @@ kubectl config use-context kubernetes-context
     ```
 
 More information about clusters and contexts: https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/
+
+## ## Custom API users with token authentication
+
+1. Create service account:
+
+    ```bash
+    kubectl create serviceaccount myuser
+    ```
+
+1. Create role and role binding:
+
+    ```bash
+    kubectl apply -f - <<EOF
+    kind: Role
+    apiVersion: rbac.authorization.k8s.io/v1beta1
+    metadata:
+      namespace: default
+      name: deployment-manager
+    rules:
+    - apiGroups: ["", "extensions", "apps", "batch", "autoscaling"]
+      resources: ["services", "deployments", "replicasets", "pods", "replicationcontrollers", "jobs", "cronjobs", "daemonsets", "statefulsets", "horizontalpodautoscalers"]
+      verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+    ---
+    kind: RoleBinding
+    apiVersion: rbac.authorization.k8s.io/v1beta1
+    metadata:
+      name: deployment-manager-binding
+      namespace: default
+    subjects:
+    - kind: ServiceAccount
+      name: myuser
+      apiGroup: ""
+    roleRef:
+      kind: Role
+      name: deployment-manager
+      apiGroup: ""
+    EOF
+    ```
+
+1. Create kubeconfig:
+
+    ```bash
+    SECRET_NAME=$(kubectl get serviceaccount myuser -o json | jq --raw-output '.secrets[].name')
+    kubectl get secrets ${SECRET_NAME} -o json | jq --raw-output '.data.token' | base64 -d
+    kubectl config set-cluster kubernetes --server=https://1.2.3.4:6443 --certificate-authority=./ca.crt --embed-certs
+    kubectl config set-credentials user --token=${TOKEN}
+    kubectl config set-context my-context --cluster=kubernetes --namespace=default --user=myuser
+    kubectl config use-context my-context
+    ```
