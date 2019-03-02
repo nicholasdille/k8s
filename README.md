@@ -110,7 +110,7 @@ kubectl config use-context kubernetes-context
 
 More information about clusters and contexts: https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/
 
-## ## Custom API users with token authentication
+## Custom API users with token authentication
 
 1. Create service account:
 
