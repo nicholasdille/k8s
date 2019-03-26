@@ -24,7 +24,7 @@ cd /tmp/k8s/bootstrap
 bash master.sh
 ```
 
-To bootstrap kubernetes based on Docker only run `bash docker.sh` from `binaries/`.
+To bootstrap kubernetes based on Docker only run `bash docker.sh` from `binaries/` followed by `master.sh` from `bootstrap/`.
 
 ## Completion
 
