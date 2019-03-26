@@ -51,6 +51,8 @@ How to parameterize:
 cat gitea.yml.envsubst | GITEA_IMAGE_TAG=1.5 PUBLISH_DOMAIN=gitea.k8s.go-nerd.de envsubst
 ```
 
+Or use helm.
+
 ## Connect to cluster
 
 ```bash
@@ -110,7 +112,7 @@ kubectl config use-context kubernetes-context
 
 More information about clusters and contexts: https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/
 
-## ## Custom API users with token authentication
+## Custom API users with token authentication
 
 1. Create service account:
 
